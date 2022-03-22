@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostEntity } from './post.entity';
@@ -17,6 +17,10 @@ export class PostsService {
 
   // 创建文章
   async create(post: Partial<PostEntity>): Promise<PostEntity> {
+    const { title, content } = post;
+    if (!title || !content) {
+      throw new HttpException('title or content field must cannot be empty!', 401);
+    }
     return await this.postsRepository.save(post);
   }
 

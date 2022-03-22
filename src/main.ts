@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 import { HttpExceptionFilter } from './core/filter/http-exception.filter';
@@ -11,6 +12,15 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局拦截器
   app.useGlobalInterceptors(new TransformInterceptor());
+
+  // 接口文档
+  const config = new DocumentBuilder()
+    .setTitle('接口文档')
+    .setDescription('The nestjs template API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(3000);
 }
