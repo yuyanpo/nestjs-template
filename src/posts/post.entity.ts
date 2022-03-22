@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('posts')
+@Entity('posts') // 数据库表名称
 export class PostEntity {
   @PrimaryGeneratedColumn()
   id: number; // 标记为主列 值自动生成

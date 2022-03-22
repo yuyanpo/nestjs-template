@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { PostEntity } from './post.entity';
 
 export interface PostDto {
@@ -22,7 +22,7 @@ export class PostsService {
 
   // 获取文章列表
   async findAll(query): Promise<PostDto> {
-    const qb = await getRepository(PostEntity).createQueryBuilder('post');
+    const qb = await this.postsRepository.createQueryBuilder('post');
     qb.where('1 = 1');
     qb.orderBy('post.create_time', 'DESC');
 
