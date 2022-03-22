@@ -1,8 +1,8 @@
 {
-  "name": "nestjs-study",
+  "name": "nestjs-template",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "This is a nestjs template project. and so...",
+  "author": "yuyanpo",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -22,11 +22,15 @@
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^2.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^8.0.3",
+    "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
