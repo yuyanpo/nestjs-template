@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -12,6 +13,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局拦截器
   app.useGlobalInterceptors(new TransformInterceptor());
+  // 全局管道 数据验证
+  app.useGlobalPipes(new ValidationPipe());
 
   // 接口文档
   const config = new DocumentBuilder()

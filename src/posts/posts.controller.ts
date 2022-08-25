@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PostsService } from './posts.service';
+import { CreatePostDto } from './dto/create-post.dto';
 
 @ApiTags('文章')
 @Controller('posts')
@@ -10,7 +11,7 @@ export class PostsController {
   // 创建文章
   @ApiOperation({ summary: '创建文章' })
   @Post()
-  create(@Body() post) {
+  create(@Body() post: CreatePostDto) {
     return this.postsService.create(post);
   }
 
@@ -24,7 +25,7 @@ export class PostsController {
   // 获取指定文章
   @ApiOperation({ summary: '获取指定ID文章' })
   @Get('/:id')
-  findById(@Param('id') id) {
+  findById(@Param('id') id: number) {
     return this.postsService.findById(id);
   }
 

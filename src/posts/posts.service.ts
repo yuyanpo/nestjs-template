@@ -19,7 +19,7 @@ export class PostsService {
   async create(post: Partial<PostEntity>): Promise<PostEntity> {
     const { title, content } = post;
     if (!title || !content) {
-      throw new HttpException('title or content field must cannot be empty!', 401);
+      throw new HttpException('title or content field must cannot be empty!', 200);
     }
     return await this.postsRepository.save(post);
   }
