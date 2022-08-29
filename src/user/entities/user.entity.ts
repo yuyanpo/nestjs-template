@@ -1,11 +1,13 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Exclude } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('users')
 export class UserEntity {
+  @ApiProperty({ description: '用户id' })
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column({ length: 100 })
   username: string; // 用户名

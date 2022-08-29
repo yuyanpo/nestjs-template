@@ -8,11 +8,14 @@ import {
   Delete,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('用户')
 @Controller('user')
@@ -23,18 +26,22 @@ export class UserController {
   @ApiResponse({ status: 201, type: CreateUserDto })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('register')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  register(@Body() createUserDto: CreateUserDto) {
+    return this.userService.register(createUserDto);
   }
 
+  @ApiOperation({ summary: '获取用户信息' })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async getUserInfo(@Req() req) {
+    return req.user;
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')

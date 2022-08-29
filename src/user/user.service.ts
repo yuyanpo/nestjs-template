@@ -11,7 +11,7 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
   ) {}
-  async create(createUserDto: CreateUserDto) {
+  async register(createUserDto: CreateUserDto) {
     const { username } = createUserDto;
 
     const existUser = await this.userRepository.findOne({
@@ -30,8 +30,12 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.userRepository.findOne(id);
+    // TypeOrm 0.3.0 已经不支持直接传 id 查询
+    /* return await this.userRepository.findOne({
+      where: { id },
+    }); */
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
